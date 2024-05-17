@@ -1,15 +1,12 @@
 body {
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #faf8ef;
-}
-
-h1 {
-    color: #776e65;
 }
 
 #game-container {
@@ -35,6 +32,7 @@ h1 {
 }
 
 .tile {
+    position: absolute;
     width: 100px;
     height: 100px;
     background-color: #eee4da;
@@ -45,4 +43,23 @@ h1 {
     font-size: 24px;
     font-weight: bold;
     color: #776e65;
+}
+
+/* Add tile color classes here... */
+
+#reset-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #8f7a66;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#reset-button:hover {
+    background-color: #9d8b74;
 }
