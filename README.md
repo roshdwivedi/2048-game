@@ -21,4 +21,7 @@ This is a learning project aimed at understanding and implementing the popular g
 - Learn How to use Docker file 
 - Implement the game logic for 2048.
 
-Please note that this is a learning project and may not include all the features of the original 2048 game most of the code. The main objective of this repo is to learn the Dockerization and CI-CD principles 
+**NOTE-** This is a learning project and may not include all the features of the original 2048 game most of the code. The main objective of this repo is to learn the Dockerization and CI-CD principles 
+
+
+
