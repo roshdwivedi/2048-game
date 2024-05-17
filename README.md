@@ -18,8 +18,6 @@ This is a learning project aimed at understanding and implementing the popular g
 ## Learning Objectives
 
 - Understand the basics of HTML, CSS, and JavaScript.
-- Learn how to structure a web page using HTML.
-- Learn how to style a web page using CSS.
 - Learn How to use Docker file 
 - Implement the game logic for 2048.
 
