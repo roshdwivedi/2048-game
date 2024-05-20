@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: 3.8
 
@@ -24,28 +24,13 @@ jobs:
         . venv/bin/activate
         pip install -r requirements.txt
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python3-pip
-        pip3 install awscli
-        pip3 install awsebcli
-
-    - name: Configure AWS credentials
+    - name: Deploy to Elastic Beanstalk
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_REGION: "us-west-2"
       run: |
-        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        aws configure set default.region $AWS_REGION
-
-    - name: Deploy to Elastic Beanstalk
-      env:
-        EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
-        EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
-      run: |
-        eb init -p docker $EB_APP_NAME --region $AWS_REGION
-        eb use $EB_ENV_NAME
+        pip install awsebcli
+        eb init -p python-3.8 my-eb-app --region $AWS_REGION
+        eb create my-eb-env
         eb deploy
