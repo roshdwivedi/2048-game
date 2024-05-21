@@ -16,36 +16,38 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: 3.8
+        python-version: '3.8'
 
     - name: Install dependencies
       run: |
-        python -m venv venv
-        . venv/bin/activate
+        python -m venv eb-env
+        . eb-env/bin/activate
+        pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python3-pip
-        pip3 install awscli
-        pip3 install awsebcli
-
     - name: Configure AWS credentials
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_REGION }}
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Install AWS Elastic Beanstalk CLI
       run: |
-        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        aws configure set default.region $AWS_REGION
+        . eb-env/bin/activate
+        pip install awsebcli
 
     - name: Deploy to Elastic Beanstalk
       env:
-        EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
-        EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
       run: |
-        eb init -p docker $EB_APP_NAME --region $AWS_REGION
-        eb use $EB_ENV_NAME
+        . eb-env/bin/activate
+        eb init -p python-3.8 my-eb-app --region $AWS_REGION
+        eb create my-eb-env
         eb deploy
+
+    - name: Fetch EB Logs on Failure
+      if: failure()
+      run: |
+        . eb-env/bin/activate
+        eb logs --all
