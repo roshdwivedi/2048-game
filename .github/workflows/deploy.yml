@@ -43,11 +43,18 @@ jobs:
       run: |
         . eb-env/bin/activate
         eb init -p python-3.8 my-eb-app --region $AWS_REGION
-        eb create my-eb-env
-        eb deploy
+        if eb status my-eb-env; then
+          echo "Environment exists, deploying..."
+          eb deploy
+        else
+          echo "Environment does not exist, creating..."
+          eb create my-eb-env
+          eb deploy
+        fi
 
     - name: Fetch EB Logs on Failure
       if: failure()
       run: |
         . eb-env/bin/activate
         eb logs --all
+
