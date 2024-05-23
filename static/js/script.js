@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tile = document.createElement('div');
         tile.classList.add('tile', `tile-${value}`);
         tile.textContent = value;
-        tile.style.top = `${x * 120 + 15}px`;
-        tile.style.left = `${y * 120 + 15}px`;
+        tile.style.top = `${x * 120}px`;
+        tile.style.left = `${y * 120}px`;
         gameBoard.appendChild(tile);
     }
 
