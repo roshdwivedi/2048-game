@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tile = document.createElement('div');
         tile.classList.add('tile', `tile-${value}`);
         tile.textContent = value;
-        tile.style.top = `${x * 120}px`;
-        tile.style.left = `${y * 120}px`;
+        tile.style.gridRowStart = x + 1;
+        tile.style.gridColumnStart = y + 1;
         gameBoard.appendChild(tile);
     }
 
@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function isGameOver() {
-        // Check for any empty cells
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 if (board[i][j] === null) {
@@ -45,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Check for any possible merges
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 if (i < 3 && board[i][j] === board[i + 1][j]) {
@@ -128,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (moved) addRandomTile();
 
-        // Check if the game is over
         if (isGameOver()) {
             alert("Game Over!");
         }
