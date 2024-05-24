@@ -16,7 +16,7 @@ This is a learning project aimed at understanding and implementing the popular g
 - `style.css`: This file contains the CSS styles for the game.
 - `script.js`: This file contains the JavaScript code for the game logic.
 
-Check the progress [here](http://flask-2048-env.eba-ge7n5vmw.us-east-1.elasticbeanstalk.com/)
+Check the progress [here](http://my-eb-env.eba-r3ij56ty.us-east-1.elasticbeanstalk.com/)
 
 **NOTE-** This is a learning project and may not include all the features of the original 2048 game most of the code. The main objective of this repo is to learn the Dockerization and CI-CD principles 
 
