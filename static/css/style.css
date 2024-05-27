@@ -1,33 +1,61 @@
 body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0d5c9;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #faf8ef;
-    font-family: 'Arial', sans-serif;
     user-select: none; /* Prevent text selection */
 }
 
 #game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
+}
+
+#game-info {
+    margin-bottom: 50px;
+    padding: 15px;
+    background-color: #bbada0;
+    color: #514b44;
+    border-radius: 10px;
+}
+
+#game-info h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #514b44;
+}
+
+#game-info p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+#game-info ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 14px;
+    color: #514b44;
+}
+
+#game-info li {
+    margin: 5px 0;
+}
+
+#game-board-container {
+    position: relative;
+    display: inline-block;
 }
 
 #game-board {
-    position: relative;
-    width: 480px;
-    height: 480px;
-    background-color: #bbada0;
-    border-radius: 10px;
-    padding: 15px;
-    box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-rows: repeat(4, 100px);
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    background-color: #bbada0;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .tile {
@@ -40,7 +68,7 @@ body {
     border-radius: 5px;
     font-weight: bold;
     color: #776e65;
-    transition: transform 2.0s ease; /* Smooth transition */
+    transition: transform 0.5s ease; /* Smooth transition with increased duration */
 }
 
 .tile-2 { background-color: #eee4da; }
@@ -56,16 +84,15 @@ body {
 .tile-2048 { background-color: #edc22e; color: #f9f6f2; }
 
 #reset-button {
-    margin-bottom: 20px; /* Ensure enough space between button and board */
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: #8f7a66;
-    color: white;
+    color: #f9f6f2;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-    display: block;
-    margin: 0 auto; /* Center the button horizontally */
+    transition: background-color 0.3s ease;
 }
 
 #reset-button:hover {

@@ -8,8 +8,21 @@
 </head>
 <body>
     <div id="game-container">
-        <div id="game-board"></div>
-        <button id="reset-button">Reset Game</button>
+        <div id="game-info">
+            <h2>2048 Game</h2>
+            <p>Welcome to the 2048 game! Join the numbers and get to the 2048 tile!</p>
+            <p><strong>How to Play:</strong></p>
+            <p>Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one!</p>
+            <ul>
+                <li><strong>Keyboard:</strong> Use Arrow keys (Up, Down, Left, Right)</li>
+                <li><strong>Mouse:</strong> Click and drag to move tiles</li>
+                <li><strong>Touch:</strong> Swipe to move tiles (for touch devices)</li>
+            </ul>
+        </div>
+        <div id="game-board-container">
+            <div id="game-board"></div>
+            <button id="reset-button">Reset Game</button>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
