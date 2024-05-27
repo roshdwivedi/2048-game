@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function moveTiles(direction) {
         let moved = false;
+        const prevBoard = JSON.parse(JSON.stringify(board)); // Copy previous state
         gameBoard.innerHTML = '';
 
         const mergeTiles = (arr) => {
@@ -116,9 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
         }
 
+        // Apply the transitions
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-                if (board[i][j] !== null) {
+                if (prevBoard[i][j] !== board[i][j] || board[i][j] !== null) {
                     createTile(board[i][j], i, j);
                 }
             }
@@ -147,6 +149,92 @@ document.addEventListener('DOMContentLoaded', () => {
         if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
             moveTiles(event.key);
         }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    function handleTouchStart(event) {
+        const firstTouch = event.touches[0];
+        touchStartX = firstTouch.clientX;
+        touchStartY = firstTouch.clientY;
+    }
+
+    function handleTouchMove(event) {
+        if (event.touches.length > 1) return; // Ignore multiple touches
+        touchEndX = event.touches[0].clientX;
+        touchEndY = event.touches[0].clientY;
+    }
+
+    function handleTouchEnd() {
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+
+        if (Math.max(absDeltaX, absDeltaY) > 20) { // Minimum swipe distance
+            if (absDeltaX > absDeltaY) {
+                if (deltaX > 0) {
+                    moveTiles('ArrowRight');
+                } else {
+                    moveTiles('ArrowLeft');
+                }
+            } else {
+                if (deltaY > 0) {
+                    moveTiles('ArrowDown');
+                } else {
+                    moveTiles('ArrowUp');
+                }
+            }
+        }
+    }
+
+    gameBoard.addEventListener('touchstart', handleTouchStart, { passive: true });
+    gameBoard.addEventListener('touchmove', handleTouchMove, { passive: true });
+    gameBoard.addEventListener('touchend', handleTouchEnd);
+
+    // Mouse drag functionality
+    let mouseDown = false;
+    let startX = 0;
+    let startY = 0;
+
+    gameBoard.addEventListener('mousedown', (event) => {
+        mouseDown = true;
+        startX = event.clientX;
+        startY = event.clientY;
+    });
+
+    gameBoard.addEventListener('mousemove', (event) => {
+        if (!mouseDown) return;
+        const endX = event.clientX;
+        const endY = event.clientY;
+        const deltaX = endX - startX;
+        const deltaY = endY - startY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+
+        if (Math.max(absDeltaX, absDeltaY) > 20) {
+            if (absDeltaX > absDeltaY) {
+                if (deltaX > 0) {
+                    moveTiles('ArrowRight');
+                } else {
+                    moveTiles('ArrowLeft');
+                }
+            } else {
+                if (deltaY > 0) {
+                    moveTiles('ArrowDown');
+                } else {
+                    moveTiles('ArrowUp');
+                }
+            }
+            mouseDown = false;
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        mouseDown = false;
     });
 
     resetButton.addEventListener('click', resetGame);
