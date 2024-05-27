@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = event.touches[0];
         touchStartX = firstTouch.clientX;
         touchStartY = firstTouch.clientY;
+        document.body.classList.add('no-scroll');
     }
 
     function handleTouchMove(event) {
@@ -173,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaY = touchEndY - touchStartY;
         const absDeltaX = Math.abs(deltaX);
         const absDeltaY = Math.abs(deltaY);
+        document.body.classList.remove('no-scroll');
 
         if (Math.max(absDeltaX, absDeltaY) > 20) { // Minimum swipe distance
             if (absDeltaX > absDeltaY) {
