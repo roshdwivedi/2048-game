@@ -16,7 +16,11 @@ This is a learning project aimed at understanding and implementing the popular g
 - `style.css`: This file contains the CSS styles for the game.
 - `script.js`: This file contains the JavaScript code for the game logic.
 
-Check the progress [here](http://my-eb-env.eba-r3ij56ty.us-east-1.elasticbeanstalk.com/)
+Check the progress below :
+![image](https://github.com/roshdwivedi/2048-game/assets/100048354/df562a99-2371-4cbf-bd11-8217a092c99e)
+![image](https://github.com/roshdwivedi/2048-game/assets/100048354/4c46631c-e831-4b21-9980-178dae758712)
+
+
 
 **NOTE-** This is a learning project and may not include all the features of the original 2048 game most of the code. The main objective of this repo is to learn the Dockerization and CI-CD principles 
 
